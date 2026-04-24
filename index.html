@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sonic Eagles — Music • Films • Sci-Fi • PAX AMERICANA">
+    <title>Sonic Eagles | PAX AMERICANA</title>
+    
+    <!-- Tailwind Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        :root {
+            --sonic-cyan: #00f0ff;
+            --eagle-gold: #ffcc00;
+            --patriot-red: #b91c1c;
+        }
+        
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .title-font { font-family: 'Space Grotesk', sans-serif; }
+        
+        .neon-cyan { text-shadow: 0 0 10px var(--sonic-cyan), 0 0 20px var(--sonic-cyan), 0 0 40px var(--sonic-cyan); }
+        .neon-gold { text-shadow: 0 0 10px var(--eagle-gold), 0 0 20px var(--eagle-gold); }
+        
+        .hero-bg {
+            background: linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
+                        radial-gradient(circle at center, #111827 0%, #000000 80%);
+        }
+        
+        .eagle-svg { filter: drop-shadow(0 0 30px #ffcc00); }
+        
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #00f0ff, #ffcc00);
+        }
+    </style>
+</head>
+<body class="bg-neutral-950 text-white overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-neutral-950/80 backdrop-blur-lg">
+        <div class="max-w-screen-2xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-4xl">🦅</span>
+                <h1 class="title-font text-3xl tracking-[-2px] neon-cyan">SONIC EAGLES</h1>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#inception" class="hover:text-[#00f0ff] transition-colors">INCEPTION</a>
+                <a href="#music" class="hover:text-[#00f0ff] transition-colors">MUSIC</a>
+                <a href="#films" class="hover:text-[#00f0ff] transition-colors">FILMS</a>
+                <a href="#scifi" class="hover:text-[#00f0ff] transition-colors">SCI-FI</a>
+                <a href="#contact" class="hover:text-[#00f0ff] transition-colors">JOIN</a>
+            </div>
+            
+            <a href="#contact" 
+               class="px-6 py-3 bg-[#ffcc00] hover:bg-white text-black font-bold rounded-2xl transition-all active:scale-95 flex items-center gap-2">
+                <span>ENTER THE REALM</span>
+                <span class="text-xl">→</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="hero" class="hero-bg min-h-screen flex items-center relative pt-20">
+        <canvas id="particles" class="absolute inset-0 pointer-events-none z-0 opacity-40"></canvas>
+        
+        <div class="max-w-screen-2xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="space-y-8" data-aos="fade-right">
+                <div class="inline-flex items-center gap-2 bg-white/10 text-white text-sm font-medium px-6 py-2 rounded-3xl border border-white/20">
+                    <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f0ff] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-[#00f0ff]"></span>
+                    </span>
+                    NOW STREAMING • PAX AMERICANA
+                </div>
+                
+                <h1 class="title-font text-7xl md:text-8xl font-bold tracking-[-4px] leading-none neon-cyan">
+                    SONIC<br>EAGLES
+                </h1>
+                
+                <p class="text-3xl md:text-4xl text-[#ffcc00] font-medium neon-gold">
+                    Music • Films • Sci-Fi<br>
+                    <span class="text-white">PAX AMERICANA</span>
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <a href="#music" 
+                       class="px-10 py-5 bg-[#00f0ff] hover:bg-white text-black font-bold text-xl rounded-3xl transition-all active:scale-95 flex items-center gap-3">
+                        LISTEN NOW
+                        <span class="text-3xl">🎵</span>
+                    </a>
+                    <a href="#films" 
+                       class="px-10 py-5 border-2 border-[#ffcc00] hover:bg-[#ffcc00] hover:text-black font-bold text-xl rounded-3xl transition-all active:scale-95">
+                        WATCH TRAILERS
+                    </a>
+                </div>
+                
+                <div class="text-sm text-white/70 flex items-center gap-6">
+                    <div>EST. 2026 • EARTH</div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-[#b91c1c]">★</span> FREEDOM • STRENGTH • SOUND
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Flying Eagle -->
+            <div class="flex justify-center md:justify-end relative" data-aos="fade-left">
+                <svg id="eagle" width="420" height="420" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" class="eagle-svg drop-shadow-2xl">
+                    <path d="M256 80 L180 200 L100 180 L140 280 L100 380 L180 360 L256 432 L332 360 L392 380 L352 280 L392 180 L312 200 Z" fill="#ffcc00" stroke="#00f0ff" stroke-width="18" stroke-linejoin="round"/>
+                    <path d="M200 260 Q180 300 220 320" fill="none" stroke="#b91c1c" stroke-width="25" stroke-linecap="round"/>
+                    <path d="M312 260 Q332 300 292 320" fill="none" stroke="#b91c1c" stroke-width="25" stroke-linecap="round"/>
+                    <circle cx="256" cy="220" r="28" fill="#111827"/>
+                    <circle cx="256" cy="220" r="12" fill="#ffcc00"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-12 left-1/2 flex flex-col items-center gap-2 text-white/50 text-sm animate-bounce">
+            <div>SCROLL FOR GLORY</div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-9-9m0 0L5 5" />
+            </svg>
+        </div>
+    </header>
+
+    <!-- THE INCEPTION STORY -->
+    <section id="inception" class="max-w-screen-2xl mx-auto px-6 py-24 border-t border-white/10 bg-neutral-900">
+        <div class="grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7" data-aos="fade-right">
+                <h2 class="text-5xl title-font tracking-[-2px] neon-gold section-header mb-8">THE INCEPTION</h2>
+                
+                <div class="prose prose-invert text-xl leading-relaxed text-white/90 space-y-6">
+                    <p>The eagle has symbolized unmatched freedom, raw power, and soaring grace for millennia—from the Roman Aquila, sacred to Jupiter and carried as the standard of conquering legions, to the American bald eagle, the enduring emblem of resilient leadership and unyielding sovereignty.</p>
+                    
+                    <p>This spirit lives on in citizen-soldiers like Cincinnatus, who left his farm to defend Rome and then voluntarily surrendered power—an inspiration to George Washington, who led a revolution to victory before returning to civilian life at Mount Vernon. That same ethos of service, sacrifice, and restraint for the Republic forges Sonic Eagles: proudly American, built in honor of every service member who has bled, sweated, and fought to defend this nation.</p>
+                    
+                    <p>Founder and Executive Producer Rome Coffey also draws inspiration from his father’s eight years of service in the U.S. Army Reserve and cherished memories at Fort Hamilton, Brooklyn as a young boy. He launches the label with his debut single, "Eagle Flies," a bold celebration of Liberation Day and the reclamation of America’s founding promise.</p>
+                    
+                    <p>The name Sonic Eagles fuses the legendary "Screaming Eagles" of the 101st Airborne Division—where guitar icon Jimi Hendrix served as a paratrooper, earned his wings, and received the Screaming Eagles patch—with Hendrix’s revolutionary sound and visionary spirit. Sonic Eagles isn’t just music; it’s a sonic manifesto for America’s emerging golden era of abundance.</p>
+                    
+                    <p>An independent record label rooted in America First principles spanning many genres, it champions the sovereignty of We The People through hard-hitting riffs, patriotic anthems, and unfiltered truth.</p>
+                    
+                    <p>At the heart of the upcoming Sonic Eagles Rockumentary which will be announced soon stand two powerful compositions that chart the rebirth of American strength through President Trump’s cabinet: "PAX Americana Pt. 1," a soaring psychedelic anthem igniting the vision of a renewed golden age of peace through unapologetic strength, and "Stand Sovereign (PAX Americana Pt. 2)," a thunderous hard-rock declaration calling We The People to rise, secure our borders, reject forever wars, reclaim sovereignty with fire in our veins and to fight, fight, fight! Together, these tracks form a bold sonic manifesto blending raw riffs, patriotic fury, and unfiltered truth, capturing the spirit of America First as it surges into a new era of abundance, resilience, and unbreakable will.</p>
+                    
+                    <blockquote class="border-l-4 border-[#ffcc00] pl-6 italic text-[#ffcc00] text-2xl">
+                        “When the power of love overcomes the love of power, the world will know peace.”
+                    </blockquote>
+                    <p class="text-sm text-white/70 -mt-2">— Jimi Hendrix</p>
+                    
+                    <p class="text-[#ffcc00] font-medium">This is the sound of sovereignty rising.<br>Eagle flies.</p>
+                </div>
+            </div>
+            
+            <!-- Right column visual -->
+            <div class="md:col-span-5" data-aos="fade-left">
+                <div class="bg-black/60 border border-[#00f0ff]/30 rounded-3xl p-10 text-center sticky top-8">
+                    <div class="text-8xl mb-6 animate-pulse">🦅</div>
+                    <p class="italic text-2xl text-white/90">"In the roar of the sonic eagle, America finds its voice again."</p>
+                    <p class="text-[#ffcc00] mt-8 text-sm">— Rome Coffey, Founder &amp; Executive Producer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MUSIC SECTION -->
+    <section id="music" class="max-w-screen-2xl mx-auto px-6 py-24 border-t border-white/10">
+        <div class="flex justify-between items-end mb-12">
+            <h2 class="text-5xl title-font tracking-[-2px] neon-cyan section-header">MUSIC</h2>
+            <a href="#" class="text-[#ffcc00] flex items-center gap-2 text-lg font-medium">FULL DISCOGRAPHY →</a>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-neutral-900 rounded-3xl p-6 hover:scale-105 transition-transform" data-aos="fade-up">
+                <div class="h-64 bg-gradient-to-br from-[#00f0ff]/20 to-[#ffcc00]/10 rounded-2xl flex items-center justify-center text-8xl mb-6">🦅</div>
+                <h3 class="text-2xl font-semibold">Eagle Flies</h3>
+                <p class="text-white/70">Sonic Eagles • 2026</p>
+                <audio controls class="w-full mt-6 accent-[#00f0ff]">
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+            
+            <div class="bg-neutral-900 rounded-3xl p-6 hover:scale-105 transition-transform" data-aos="fade-up" data-aos-delay="100">
+                <div class="h-64 bg-gradient-to-br from-[#b91c1c]/20 to-[#ffcc00]/10 rounded-2xl flex items-center justify-center text-8xl mb-6">🇺🇸</div>
+                <h3 class="text-2xl font-semibold">Pax Americana Anthem</h3>
+                <p class="text-white/70">Sonic Eagles • 2026</p>
+                <audio controls class="w-full mt-6 accent-[#00f0ff]">
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+            
+            <div class="bg-neutral-900 rounded-3xl p-6 hover:scale-105 transition-transform" data-aos="fade-up" data-aos-delay="200">
+                <div class="h-64 bg-gradient-to-br from-[#00f0ff]/20 to-[#b91c1c]/10 rounded-2xl flex items-center justify-center text-8xl mb-6">🌌</div>
+                <h3 class="text-2xl font-semibold">Neon Skies Over Freedom</h3>
+                <p class="text-white/70">Sonic Eagles • 2026</p>
+                <audio controls class="w-full mt-6 accent-[#00f0ff]">
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-18.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- FILMS SECTION -->
+    <section id="films" class="bg-black py-24">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <h2 class="text-5xl title-font tracking-[-2px] neon-cyan section-header mb-12">FILMS &amp; TRAILERS</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group" data-aos="fade-up">
+                    <div class="aspect-video bg-neutral-900 rounded-3xl overflow-hidden relative">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9wgxcQ" title="YouTube trailer" frameborder="0" allowfullscreen class="group-hover:scale-105 transition-transform"></iframe>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-semibold">Eagle Dawn: Rise of the Sonic Order</h3>
+                    <p class="text-white/60">Sci-Fi Action • 2026</p>
+                </div>
+                
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="aspect-video bg-neutral-900 rounded-3xl overflow-hidden relative">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/3tmdIb3t4dI" title="YouTube trailer" frameborder="0" allowfullscreen class="group-hover:scale-105 transition-transform"></iframe>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-semibold">Pax Americana: The Final Frontier</h3>
+                    <p class="text-white/60">Epic Drama • 2026</p>
+                </div>
+                
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="aspect-video bg-neutral-900 rounded-3xl overflow-hidden relative">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/9Si2R7o4q1Y" title="YouTube trailer" frameborder="0" allowfullscreen class="group-hover:scale-105 transition-transform"></iframe>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-semibold">Sonic Rebellion</h3>
+                    <p class="text-white/60">Music Documentary • 2026</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCI-FI / PAX AMERICANA SECTION -->
+    <section id="scifi" class="max-w-screen-2xl mx-auto px-6 py-24 border-t border-white/10">
+        <div class="grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7" data-aos="fade-right">
+                <h2 class="text-5xl title-font tracking-[-2px] neon-gold mb-6">THE VISION: PAX AMERICANA</h2>
+                <p class="text-xl leading-relaxed text-white/80 max-w-lg">
+                    A new era of freedom, strength, and sound. Sonic Eagles unites music, film, and sci-fi to celebrate the American spirit — soaring higher, shining brighter, and echoing across the stars.
+                </p>
+                <div class="mt-12 flex items-center gap-8 text-sm">
+                    <div class="flex items-center gap-3"><span class="text-4xl">🦅</span><div><div class="font-bold">LIBERTY</div><div class="text-white/50">Unbreakable</div></div></div>
+                    <div class="flex items-center gap-3"><span class="text-4xl">🇺🇸</span><div><div class="font-bold">STRENGTH</div><div class="text-white/50">Eternal</div></div></div>
+                    <div class="flex items-center gap-3"><span class="text-4xl">🌌</span><div><div class="font-bold">INNOVATION</div><div class="text-white/50">Infinite</div></div></div>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5 bg-neutral-900 rounded-3xl p-8 text-center" data-aos="fade-left">
+                <div class="text-8xl mb-6 animate-pulse">🦅</div>
+                <p class="italic text-2xl">"In the roar of the sonic eagle, America finds its voice again."</p>
+                <p class="text-[#ffcc00] mt-6">— Jerome W. J. Coffey</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="bg-gradient-to-b from-black to-neutral-950 py-24 border-t border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-6 text-center">
+            <h2 class="text-5xl title-font tracking-[-2px] mb-4 neon-cyan">JOIN THE FLOCK</h2>
+            <p class="text-xl text-white/70 mb-12">Stay in the sonic current. Updates, drops, and freedom calls straight to your inbox.</p>
+            
+            <form action="https://formspree.io/f/YOURCODEHERE" method="POST" class="max-w-lg mx-auto">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <input type="email" name="email" placeholder="YOUR EMAIL" required
+                           class="flex-1 bg-white/10 border border-white/20 rounded-3xl px-8 py-6 text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f0ff]">
+                    <button type="submit"
+                            class="px-12 py-6 bg-[#ffcc00] text-black font-bold rounded-3xl hover:bg-white transition-colors text-xl whitespace-nowrap">
+                        SUBSCRIBE
+                    </button>
+                </div>
+            </form>
+            
+            <p class="text-xs text-white/40 mt-8">Or DM us on X @romecoffey • Zero spam, maximum eagle energy</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-white/60 text-sm">
+            <div>© 2026 Sonic Eagles • PAX AMERICANA • All Rights Reserved</div>
+            <div class="flex items-center gap-8">
+                <a href="#" class="hover:text-[#00f0ff]">INSTAGRAM</a>
+                <a href="#" class="hover:text-[#00f0ff]">X</a>
+                <a href="#" class="hover:text-[#00f0ff]">YOUTUBE</a>
+                <a href="#" class="hover:text-[#00f0ff]">SPOTIFY</a>
+            </div>
+            <div class="flex items-center gap-2">
+                MADE WITH 🔥 IN THE USA
+                <span class="text-2xl">🦅</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            tailwind.config = { theme: { extend: { colors: { sonic: '#00f0ff', eagle: '#ffcc00', patriot: '#b91c1c' } } } };
+            
+            AOS.init({ duration: 1200, once: true });
+            
+            // GSAP Eagle Animation
+            const eagle = document.getElementById('eagle');
+            gsap.to(eagle, { x: 80, rotation: 12, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut" });
+            gsap.to(eagle, { scale: 1.08, duration: 2.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+            
+            // Particle background
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d');
+            function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize);
+            resize();
+            
+            let particles = [];
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 0.5 - 0.25;
+                    this.speedY = Math.random() * 0.5 - 0.25;
+                }
+                update() {
+                    this.x += this.speedX; this.y += this.speedY;
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = Math.random() > 0.5 ? '#00f0ff' : '#ffcc00';
+                    ctx.globalAlpha = 0.6;
+                    ctx.fillRect(this.x, this.y, this.size, this.size);
+                }
+            }
+            
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < 120; i++) particles.push(new Particle());
+            }
+            
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            
+            initParticles();
+            animateParticles();
+            
+            console.log('%c🚀 Sonic Eagles deployed with full Inception story!', 'color:#00f0ff; font-size:18px; font-weight:bold');
+        });
+    </script>
+</body>
+</html>
